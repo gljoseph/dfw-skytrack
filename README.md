@@ -64,6 +64,8 @@ Medallion Architecture was implemented to enhance data quality, organization, an
 
 ### Data Model Design
 
+<img width="825" alt="Screenshot 2025-03-08 at 5 13 58 PM" src="https://github.com/user-attachments/assets/9e91e70d-72c5-4e6c-bc41-f96390a214fd" />
+
 ### Streaming Processing, Ingestion, & Storage
 - Implemented Databricks Delta Live Tables to stream real-time departure and arrival data from the AviationStack API.
 - Utilized Databricks Volumes for efficient storage of streaming data and processing with PySpark.
@@ -95,6 +97,21 @@ To maintain the integrity and reliability of the gold-level tables, unit tests w
 Find the dashboard at this link: https://dbc-7b106152-caf3.cloud.databricks.com/dashboardsv3/01effc2f5f5b1e22858830eeb7df3abf/published?o=1352785079224954
 
 Here are some of the visuals:
+
+#### Departures page:
+<img width="1310" alt="departures" src="https://github.com/user-attachments/assets/6c39ce54-705b-449c-a666-57f29a880941" />
+
+#### Arrivals page:
+<img width="1308" alt="arrivals" src="https://github.com/user-attachments/assets/b6ef6c5a-d539-4f4f-89c1-e2b630e552b0" />
+
+#### Arrival gate:
+<img width="1312" alt="arrival_gate" src="https://github.com/user-attachments/assets/5c24d100-493c-4297-885c-07d35beb6f21" />
+
+#### Baggage Claim:
+<img width="1318" alt="baggage_claim" src="https://github.com/user-attachments/assets/70debcd5-c05c-424e-8198-a262ce20c18e" />
+
+#### Delayed flights page:
+<img width="1315" alt="delayed_flights" src="https://github.com/user-attachments/assets/b0d56fbe-f593-4e26-809e-b7a7443837e8" />
 
 ## Future Enhancements
 - Extend data coverage to include all airports for a more comprehensive analysis.  
