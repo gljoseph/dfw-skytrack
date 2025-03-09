@@ -1,8 +1,10 @@
 # DFW SkyTrack ✈️
 
+<img width="735" alt="airplane" src="https://github.com/user-attachments/assets/a880f61f-4d4c-4e75-bdeb-3c05eefc105e" />
+
 ## Overview
 
-This project fetches real-time flight arrival and departure information for Dallas/Fort Worth International Airport (DFW) from the AviationStack API. It also integrates hourly and weekly weather forecasts from the National Weather Service (NWS) API to provide comprehensive aviation and weather insights. The data is updated every minute for flights and every hour for weather. The scope of this project was a high-level look at DFW airport to make sure that it runs smoothly. By leveraging flight and weather data, the project lets DFW airport operators know the flight, baggage, gate, and weather information that will affect passengers traveling through the airport.
+The scope of this project was a high-level look at DFW airport to make sure that it runs smoothly. By leveraging flight and weather data, the project lets DFW airport operators know the flight, baggage, gate, and weather information that will affect passengers traveling through the airport. This project fetches real-time flight arrival and departure information for Dallas/Fort Worth International Airport (DFW) from the AviationStack API. It also integrates hourly and weekly weather forecasts from the National Weather Service (NWS) API to provide comprehensive aviation and weather insights. The data is updated every minute for flights and every hour for weather. 
 
 The insights are presented through an interactive Databricks dashboard to show real-time departure and arrival flight updates and how weather will affect those flights.
 
@@ -43,17 +45,17 @@ The insights are presented through an interactive Databricks dashboard to show r
 - **About:** This API offers a simple, free way of accessing global flight tracking data in real-time. It provides an extensive set of aviation data, including real-time flight status, flight schedules, airline routes, airports, and aircrafts. It updates data every 30-60 seconds. This included information from 250+ countries and 13000+ airlines.
 - **Need:** This API provided the base for the project and the rest of the project is built on top of this.
 - **Data includes:** Airline IATA, Airline name, Flight number, Depart/Arrival location, Flight status, Flight delay amount, Scheduled time, Estimated time. AviationStack data divides into Departure and Arrival flight information for DFW airport.
-- **Data problems:** There were limits to the free version of their API of 100 requests each month. The free version of the API would only return 100 rows of data at a time.
+- **Data problems:** There were limits to the free version of their API of 100 requests each month.
 
 ### 2. National Weather Service API ☀️
-- **About:** The National Weather Service is a government entity that collects weather data. It provides critical forecast, alerts, observations. This API offers public access to a wide range of essential weather data. NWS refreshes every hour.
+- **About:** The National Weather Service is a government entity that collects weather data. It provides critical forecast, alerts, and observations. This API offers public access to a wide range of essential weather data. NWS refreshes every hour.
 - **Need:** NWS provides hourly and weekly data for DFW airport managers to gauge the likeliness of airport delays due to rain, snow, wind, or other extreme weather.
-- **Data includes:** temperature, wind speed, wind direction, short forecast, detailed forecast
+- **Data includes:** temperature, wind speed, wind direction, short forecast, and a detailed forecast
 - **Data problems:** The API documentation did not clearly define the rate limits.
 
 ### 3. Global Airport Database 📍
 - **About:** This Global Airport Database provided location information on 9300 large and small airports all around the world.
-- **Need:** AviationStack API data did not include location information for flights. Another data source was needed to get detailed airport information.
+- **Need:** The AviationStack API data did not include location information for flights. Another data source was needed to get detailed airport information to be able to map flight locations.
 - **Data includes:** ICAO code, IATA code, airport name, country, city, latitude, longitude, altitude
 - **Data problems:** The website wasn’t clear on how frequently this data would be updated or how the data is maintained. It worked for this project, but long-term use would be affected when new airports are built.
 
@@ -65,10 +67,13 @@ In the bronze layer, raw data was ingested in its original form, serving as the 
 This structured approach ensures that only high-quality, reliable data is used for analysis and decision-making.
 
 ### Data Pipeline Architecture
+<img width="728" alt="pipeline" src="https://github.com/user-attachments/assets/fd7835b2-eb88-4c4d-9bca-d7da02e5adea" />
 
 ### Data Model Design ⚙️
 
 <img width="825" alt="Screenshot 2025-03-08 at 5 13 58 PM" src="https://github.com/user-attachments/assets/9e91e70d-72c5-4e6c-bc41-f96390a214fd" />
+
+In this project, data was intentionally not normalized because the primary use case is visualization via a Databricks dashboard. By maintaining a denormalized structure, we reduce the need for complex joins and improve query performance when retrieving insights. This approach ensures that airport operations and weather data can be accessed quickly and efficiently without unnecessary overhead.
 
 ### Streaming Processing, Ingestion, & Storage 💾 
 - Implemented Databricks Delta Live Tables to stream real-time departure and arrival data from the AviationStack API.
@@ -86,16 +91,18 @@ To maintain the integrity and reliability of the gold-level tables, unit tests w
 - Duplicate records were identified and removed.
 
 ### Orchestration
+<img width="713" alt="orchestration" src="https://github.com/user-attachments/assets/216661b4-5513-4535-b506-b17a8b21e48b" />
+
 - Used Databricks workflow to schedule continuous and hourly updates
 - National Weather Service workflow was scheduled for 5 minutes after the hour
 
 ## Key Metrics & Business Value 📈
-- **Flight Count:** This metric shows the amount of flights shown by departure and arrival status
-- **Delayed:** This metric shows the amount of departure and arrival flights that are delayed.
-- **Runway time:** This metrics shows the spread of flight time from when the airplane pushes back from the gate to when the flight takes off.
-- **Arrival gate assignments:** this visual shows the arrival gates to show airport operators which gate may be too busy
-- **Baggage claim assignments:** this visual shows the baggage claim assignments to show airport operators which gate may be too busy
-- **Wind forecast:** this visual shows the wind forecast for the next week
+- **Flight Count:** The amount of flights shown by departure and arrival status.
+- **Delayed:** The amount of departure and arrival flights that are delayed.
+- **Runway time:** The spread of flight time from when the airplane pushes back from the gate to when the flight takes off.
+- **Arrival gate assignments:** This visual shows the arrival gates to show airport operators which gate may be too busy.
+- **Baggage claim assignments:** This visual shows the baggage claim assignments to show airport operators which gate may be too busy.
+- **Wind forecast:** This visual shows the wind forecast for the next week.
 
 ## Visualizations 📊
 Find the dashboard at this link: https://dbc-7b106152-caf3.cloud.databricks.com/dashboardsv3/01effc2f5f5b1e22858830eeb7df3abf/published?o=1352785079224954
@@ -116,6 +123,9 @@ Here are some of the visuals:
 
 #### Delayed flights page:
 <img width="1315" alt="delayed_flights" src="https://github.com/user-attachments/assets/b0d56fbe-f593-4e26-809e-b7a7443837e8" />
+
+#### Weather page:
+<img width="1009" alt="weather" src="https://github.com/user-attachments/assets/b26c8af4-4d34-4197-9b40-007992fbfa5b" />
 
 ## Future Enhancements
 - Extend data coverage to include all airports for a more comprehensive analysis.  
